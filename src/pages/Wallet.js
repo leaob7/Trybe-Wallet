@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { addExpenses } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -78,6 +79,7 @@ class Wallet extends React.Component {
             </select>
           </label>
           { this.tagSelectOptions() }
+          <button type="submit">Adicionar despesa</button>
         </form>
       </>
     );
@@ -86,11 +88,16 @@ class Wallet extends React.Component {
 
 const mapStateToProps = (state) => ({
   email: state.user.email,
+  expenses: state.wallet.expense,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  savedExpenses: (expenses) => dispatch(addExpenses(expenses)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
 };
 
-export default connect(mapStateToProps, null)(Wallet);
+export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
 // export default Wallet;

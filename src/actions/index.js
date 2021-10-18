@@ -1,4 +1,7 @@
 // Coloque aqui suas actions
-const addEmail = (email) => ({ type: 'USER_ACTION', email });
+export const addEmail = (email) => ({ type: 'USER_ACTION', email });
 
-export default addEmail;
+export const addExpenses = (expense) => ({
+  type: 'WALLET_EXPENSE',
+  expense,
+});
