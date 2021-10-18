@@ -8,11 +8,12 @@ class Login extends React.Component {
     super();
     this.state = {
       emailText: '',
-      pass: 0,
+      password: 0,
     };
     this.inputHandle = this.inputHandle.bind(this);
     this.passwordHandle = this.passwordHandle.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.isEmail = this.isEmail.bind(this);
   }
 
   inputHandle(event) {
@@ -23,7 +24,7 @@ class Login extends React.Component {
 
   passwordHandle(event) {
     this.setState({
-      pass: event.target.value.length,
+      password: event.target.value.length,
     });
   }
 
@@ -34,8 +35,16 @@ class Login extends React.Component {
     history.push('/carteira');
   }
 
+  // funcao vinda da fonte: https://stackoverflow.com/questions/41348459/regex-in-react-email-validation
+  isEmail(val) {
+    const regEmail = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    if (!regEmail.test(val)) {
+      return 'Invalid Email';
+    }
+  }
+
   render() {
-    const { emailText, pass } = this.state;
+    const { password, emailText } = this.state;
     const PASSWORD_LENTGH = 6;
     return (
       <main>
@@ -64,7 +73,7 @@ class Login extends React.Component {
             type="submit"
             id="submit-btn"
             onClick={ this.handleClick }
-            disabled={ pass < PASSWORD_LENTGH }
+            disabled={ password < PASSWORD_LENTGH || this.isEmail(emailText) }
           >
             Entrar
           </button>
@@ -76,6 +85,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   history: PropTypes.objectOf(PropTypes.any).isRequired,
+  emailProp: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
