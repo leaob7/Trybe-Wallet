@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { fetchExchange } from '../actions';
+import { fetchExchange as fetchExchangeAction } from '../actions';
 
 class Wallet extends React.Component {
   constructor() {
@@ -59,20 +59,24 @@ class Wallet extends React.Component {
   async handleSubmit() {
     const { fetchExchange } = this.props;
     const { value, description, currency, method, tag } = this.state;
-    const expenses = {
+    const expen = {
       value,
       description,
       currency,
       method,
       tag,
     };
-    fetchExchange(expenses);
+    fetchExchange(expen);
   }
 
   expensesCounter() {
     const { expenses } = this.props;
-    // console.log(expenses);
-    if (!expenses) { return 0; }
+    if (expenses.length === 0) { return 0; }
+    const sumExpenses = expenses.reduce((acc, { value, exchangeRates, currency }) => {
+      if (currency === '') return 0;
+      return acc + value * exchangeRates[currency].ask;
+    }, 0);
+    return sumExpenses;
   }
 
   render() {
@@ -132,11 +136,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchExchange: (expense) => dispatch(fetchExchange(expense)),
+  fetchExchange: (expense) => dispatch(fetchExchangeAction(expense)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string.isRequired,
+  expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
+  fetchExchange: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);

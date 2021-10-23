@@ -8,13 +8,14 @@ const INITIAL_STATE = {
     currencies: [],
     expenses: [],
   },
+  expenses: [],
 };
 
 const user = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case 'USER_ACTION':
     return {
-      ...state,
+      ...state.user,
       email: action.email,
     };
   default:

@@ -1,7 +1,5 @@
 // Esse reducer será responsável por tratar o todas as informações relacionadas as despesas
 const WALLET_EXPENSE = 'WALLET_EXPENSE';
-const SAVE_EXPENDS = 'SAVE_EXPENDS';
-
 const INITIAL_STATE = {
   user: {
     email: '',
@@ -10,6 +8,7 @@ const INITIAL_STATE = {
     currencies: [],
     expenses: [],
   },
+  expenses: [],
 };
 
 const wallet = (state = INITIAL_STATE, action) => {
@@ -17,7 +16,7 @@ const wallet = (state = INITIAL_STATE, action) => {
   case WALLET_EXPENSE:
     return {
       ...state,
-      expenses: [...state.wallet.expenses, { id: state.wallet.expenses.length, ...action.payload }],
+      expenses: [...state.expenses, { id: state.expenses.length, ...action.payload }],
     };
   default:
     return state;
