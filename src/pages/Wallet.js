@@ -10,22 +10,23 @@ class Wallet extends React.Component {
     super();
     this.state = {
       dataCoins: [],
-      value: '',
+      value: 0,
       description: '',
       currency: 'USD',
       method: 'Dinheiro',
       tag: 'Alimentação',
+      isClicked: true,
     };
     this.fecthSelectCoins = this.fecthSelectCoins.bind(this);
     this.expensesCounter = this.expensesCounter.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.tableMaker = this.tableMaker.bind(this);
+    this.tableClick = this.tableClick.bind(this);
   }
 
   componentDidMount() {
     this.fecthSelectCoins();
-    // bodyMaker();
   }
 
   async fecthSelectCoins() {
@@ -71,6 +72,7 @@ class Wallet extends React.Component {
       tag,
     };
     fetchExchange(expen);
+    this.setState({ isClicked: true });
   }
 
   expensesCounter() {
@@ -83,11 +85,18 @@ class Wallet extends React.Component {
     return sumExpenses;
   }
 
-  tableMaker() {
+  tableClick(e) {
     const { expenses } = this.props;
     if (expenses.length === 0) return null;
-    const last = expenses[expenses.length - 1];
-    console.log(last);
+    const btnValue = e.target.value;
+    expenses.splice(btnValue, 1);
+    this.setState({ isClicked: false });
+  }
+
+  tableMaker() {
+    const { expenses } = this.props;
+    // const { isClicked } = this.state;
+    if (expenses.length === 0) return null;
     return (
       <table>
         <thead id="costumer-div">
@@ -103,19 +112,32 @@ class Wallet extends React.Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>{`${last.value}`}</td>
-            <td>{last.description}</td>
-            <td>{ toBefSubstring(last.exchangeRates[last.currency].name) }</td>
-            <td>{last.method}</td>
-            <td>{last.tag}</td>
-            <td>{Number(last.exchangeRates[last.currency].ask).toFixed(2)}</td>
-            <td>{ this.expensesCounter().toFixed(2) }</td>
-            <td>{ toAfterSubstring(last.exchangeRates[last.currency].name) }</td>
-            <button type="button" data-testid="delete-btn">Excluir</button>
-          </tr>
-        </tbody>
+        { expenses.map((expense, index) => {
+          return (
+            <tbody key={ index }>
+              <tr>
+                <td>{`${expense.value}`}</td>
+                <td>{expense.description}</td>
+                <td>{ toBefSubstring(expense.exchangeRates[expense.currency].name) }</td>
+                <td>{expense.method}</td>
+                <td>{expense.tag}</td>
+                <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
+                <td>{ this.expensesCounter().toFixed(2) }</td>
+                <td>{toAfterSubstring(expense.exchangeRates[expense.currency].name)}</td>
+                <td>
+                  <button
+                    value={ index }
+                    type="button"
+                    data-testid="delete-btn"
+                    onClick={ this.tableClick }
+                  >
+                    Excluir
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          );
+        }) }
       </table>
     );
   }
