@@ -121,7 +121,9 @@ class Wallet extends React.Component {
               <td>{expense.tag}</td>
               <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
               <td>{ (expense.value * expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
-              <td>{toAfterSubstring(expense.exchangeRates[expense.currency].name)}</td>
+              {/* <td>{toAfterSubstring(expense.exchangeRates[expense.currency].name)}</td> */}
+              <td>Real</td>
+              {/* Real Brasileiro => Real */}
               <td>
                 <button
                   value={ index }

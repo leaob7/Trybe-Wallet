@@ -23,7 +23,7 @@ header h1 {
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   /* border-radius: 5px; */
   padding: 2px;
 }
