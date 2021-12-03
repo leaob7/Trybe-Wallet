@@ -1,5 +1,6 @@
 // Coloque aqui suas actions
 const WALLET_EXPENSE = 'WALLET_EXPENSE';
+const REMOVE_EXPENSE = 'REMOVE_EXPENSE';
 
 export const addEmail = (email) => ({ type: 'USER_ACTION', email });
 
@@ -17,3 +18,8 @@ export const fetchExchange = (state) => async (dispatch) => {
   delete data.USDT;
   dispatch(addExpenses(state, data));
 };
+
+export const removeExpense = (id) => ({
+  type: REMOVE_EXPENSE,
+  payload: id,
+});

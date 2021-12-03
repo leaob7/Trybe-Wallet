@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import toBefSubstring from '../utils/htFunctions';
-import { fetchExchange as fetchExchangeAction } from '../actions';
+import { fetchExchange as fetchExchangeAction,
+  removeExpense as removeExpenseAction } from '../actions';
 import '../styles/wallet.css';
 
 class Wallet extends React.Component {
@@ -80,16 +81,16 @@ class Wallet extends React.Component {
     if (expenses.length === 0) { return 0; }
     const sumExpenses = expenses.reduce((acc, { value, exchangeRates, currency }) => {
       if (currency === '') return 0;
-      return (acc + Number(value) * exchangeRates[currency].ask);
+      const final = (acc + Number(value) * exchangeRates[currency].ask);
+      return Number(final).toFixed(2);
     }, 0);
     return sumExpenses;
   }
 
   tableClick(e) {
-    const { expenses } = this.props;
-    if (expenses.length === 0) return null;
+    const { removeExpense } = this.props;
     const btnValue = e.target.value;
-    expenses.splice(btnValue, 1);
+    removeExpense(btnValue);
     this.setState({ isClicked: false });
   }
 
@@ -198,12 +199,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchExchange: (expense) => dispatch(fetchExchangeAction(expense)),
+  removeExpense: (id) => dispatch(removeExpenseAction(id)),
 });
 
 Wallet.propTypes = {
   email: PropTypes.string,
   expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   fetchExchange: PropTypes.func.isRequired,
+  removeExpense: PropTypes.func.isRequired,
 };
 
 Wallet.defaultProps = {
