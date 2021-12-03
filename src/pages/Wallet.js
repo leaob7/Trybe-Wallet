@@ -81,8 +81,8 @@ class Wallet extends React.Component {
     if (expenses.length === 0) { return 0; }
     const sumExpenses = expenses.reduce((acc, { value, exchangeRates, currency }) => {
       if (currency === '') return 0;
-      const final = (acc + Number(value) * exchangeRates[currency].ask);
-      return Number(final).toFixed(2);
+      const final = (acc + Number(value) * exchangeRates[currency].ask).toFixed(2);
+      return Number(final);
     }, 0);
     return sumExpenses;
   }
