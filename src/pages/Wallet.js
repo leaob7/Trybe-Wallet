@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { toAfterSubstring, toBefSubstring } from '../utils/htFunctions';
+import toBefSubstring from '../utils/htFunctions';
 import { fetchExchange as fetchExchangeAction } from '../actions';
 import '../styles/wallet.css';
 
@@ -121,9 +121,7 @@ class Wallet extends React.Component {
               <td>{expense.tag}</td>
               <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
               <td>{ (expense.value * expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
-              {/* <td>{toAfterSubstring(expense.exchangeRates[expense.currency].name)}</td> */}
               <td>Real</td>
-              {/* Real Brasileiro => Real */}
               <td>
                 <button
                   value={ index }
@@ -203,9 +201,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Wallet.propTypes = {
-  email: PropTypes.string.isRequired,
+  email: PropTypes.string,
   expenses: PropTypes.arrayOf(PropTypes.any).isRequired,
   fetchExchange: PropTypes.func.isRequired,
+};
+
+Wallet.defaultProps = {
+  email: '',
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Wallet);
