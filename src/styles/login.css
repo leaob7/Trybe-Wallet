@@ -1,0 +1,25 @@
+
+.form-style {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15%;
+}
+
+.form-style input {
+  background-color: aliceblue;
+  text-align: center;
+  margin: 40px;
+  padding: 15px;
+}
+
+.form-style button {
+  font-size: 20px;
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+  margin-left: 50px;
+  padding: 10px;
+  color: black;
+  background-color: aliceblue;
+}

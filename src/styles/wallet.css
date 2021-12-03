@@ -1,0 +1,60 @@
+
+header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+header p {
+  width: 200px;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.form-wallet {
+  /* background-color: black; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+label, input, select {
+  /* background-color: black; */
+  color:black;
+  width: 200px;
+  margin: 10px;
+  padding: 5px;
+}
+
+button {
+  color: black;
+  font-style: italic;
+  width: 100px;
+  height: 50px;
+  margin: 30px;
+  background-color: white;
+}
+
+table {
+  text-align: center;
+  width: 100%;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+#costumer-div {
+  background-color: rgb(61, 61, 61);
+  font-size: large;
+}
+
+tr {
+  color: white;
+}
+
+td {
+  padding: 10px;
+}

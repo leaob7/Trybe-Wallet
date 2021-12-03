@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addEmail } from '../actions';
+import '../styles/login.css';
 
 class Login extends React.Component {
   constructor() {
@@ -48,7 +49,7 @@ class Login extends React.Component {
     const PASSWORD_LENTGH = 6;
     return (
       <main>
-        <form>
+        <form className="form-style">
           <label htmlFor="email-input">
             Email
             <input

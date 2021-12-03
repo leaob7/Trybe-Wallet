@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { toAfterSubstring, toBefSubstring } from '../utils/htFunctions';
 import { fetchExchange as fetchExchangeAction } from '../actions';
+import '../styles/wallet.css';
 
 class Wallet extends React.Component {
   constructor() {
@@ -10,18 +12,20 @@ class Wallet extends React.Component {
       dataCoins: [],
       value: '',
       description: '',
-      currency: '',
-      method: '',
-      tag: '',
+      currency: 'USD',
+      method: 'Dinheiro',
+      tag: 'Alimentação',
     };
     this.fecthSelectCoins = this.fecthSelectCoins.bind(this);
     this.expensesCounter = this.expensesCounter.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.tableMaker = this.tableMaker.bind(this);
   }
 
   componentDidMount() {
     this.fecthSelectCoins();
+    // bodyMaker();
   }
 
   async fecthSelectCoins() {
@@ -74,9 +78,44 @@ class Wallet extends React.Component {
     if (expenses.length === 0) { return 0; }
     const sumExpenses = expenses.reduce((acc, { value, exchangeRates, currency }) => {
       if (currency === '') return 0;
-      return acc + value * exchangeRates[currency].ask;
+      return (acc + value * exchangeRates[currency].ask);
     }, 0);
     return sumExpenses;
+  }
+
+  tableMaker() {
+    const { expenses } = this.props;
+    if (expenses.length === 0) return null;
+    const last = expenses[expenses.length - 1];
+    console.log(last);
+    return (
+      <table>
+        <thead id="costumer-div">
+          <tr id="ttr">
+            <th>Valor</th>
+            <th>Descrição</th>
+            <th>Moeda</th>
+            <th>Método de pagamento</th>
+            <th>Tag</th>
+            <th>Câmbio utilizado</th>
+            <th>Valor convertido</th>
+            <th>Moeda de conversão</th>
+            <th>Editar/Excluir</th>
+          </tr>
+        </thead>
+        <tbody>
+          <td>{`${last.currency} ${last.value}`}</td>
+          <td>{last.description}</td>
+          <td>{ toBefSubstring(last.exchangeRates[last.currency].name) }</td>
+          <td>{last.method}</td>
+          <td>{last.tag}</td>
+          <td>{last.currency}</td>
+          <td>{ this.expensesCounter().toFixed(2) }</td>
+          <td>{ toAfterSubstring(last.exchangeRates[last.currency].name) }</td>
+          <button type="button" data-testid="delete-btn">Excluir/Editar</button>
+        </tbody>
+      </table>
+    );
   }
 
   render() {
@@ -90,7 +129,7 @@ class Wallet extends React.Component {
           <p data-testid="total-field">{this.expensesCounter()}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
-        <form>
+        <form className="form-wallet">
           <label htmlFor="value">
             Valor
             <input type="text" id="value" name="value" onChange={ this.handleChange } />
@@ -125,6 +164,7 @@ class Wallet extends React.Component {
           { this.tagSelectOptions() }
           <button type="button" onClick={ this.handleSubmit }>Adicionar despesa</button>
         </form>
+        { this.tableMaker() }
       </>
     );
   }
