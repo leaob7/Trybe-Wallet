@@ -95,7 +95,6 @@ class Wallet extends React.Component {
 
   tableMaker() {
     const { expenses } = this.props;
-    // const { isClicked } = this.state;
     if (expenses.length === 0) return null;
     return (
       <table>
@@ -112,32 +111,30 @@ class Wallet extends React.Component {
             <th>Editar/Excluir</th>
           </tr>
         </thead>
-        { expenses.map((expense, index) => {
-          return (
-            <tbody key={ index }>
-              <tr>
-                <td>{`${expense.value}`}</td>
-                <td>{expense.description}</td>
-                <td>{ toBefSubstring(expense.exchangeRates[expense.currency].name) }</td>
-                <td>{expense.method}</td>
-                <td>{expense.tag}</td>
-                <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
-                <td>{ this.expensesCounter().toFixed(2) }</td>
-                <td>{toAfterSubstring(expense.exchangeRates[expense.currency].name)}</td>
-                <td>
-                  <button
-                    value={ index }
-                    type="button"
-                    data-testid="delete-btn"
-                    onClick={ this.tableClick }
-                  >
-                    Excluir
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          );
-        }) }
+        { expenses.map((expense, index) => (
+          <tbody key={ index }>
+            <tr>
+              <td>{`${expense.value}`}</td>
+              <td>{expense.description}</td>
+              <td>{ toBefSubstring(expense.exchangeRates[expense.currency].name) }</td>
+              <td>{expense.method}</td>
+              <td>{expense.tag}</td>
+              <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
+              <td>{ this.expensesCounter().toFixed(2) }</td>
+              <td>{toAfterSubstring(expense.exchangeRates[expense.currency].name)}</td>
+              <td>
+                <button
+                  value={ index }
+                  type="button"
+                  data-testid="delete-btn"
+                  onClick={ this.tableClick }
+                >
+                  Excluir
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        )) }
       </table>
     );
   }
@@ -149,8 +146,8 @@ class Wallet extends React.Component {
     return (
       <>
         <header>
-          <p data-testid="email-field">{email}</p>
-          <p data-testid="total-field">{this.expensesCounter()}</p>
+          <p data-testid="email-field">{`Email: ${email}`}</p>
+          <p data-testid="total-field">{`Despesa total: R$${this.expensesCounter()}`}</p>
           <p data-testid="header-currency-field">BRL</p>
         </header>
         <form className="form-wallet">
