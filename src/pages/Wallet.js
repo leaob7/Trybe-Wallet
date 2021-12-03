@@ -120,7 +120,7 @@ class Wallet extends React.Component {
               <td>{expense.method}</td>
               <td>{expense.tag}</td>
               <td>{Number(expense.exchangeRates[expense.currency].ask).toFixed(2)}</td>
-              <td>{ this.expensesCounter().toFixed(2) }</td>
+              <td>{ (expense.value * expense.exchangeRates[expense.currency].ask).toFixed(2) }</td>
               <td>{toAfterSubstring(expense.exchangeRates[expense.currency].name)}</td>
               <td>
                 <button
@@ -146,6 +146,7 @@ class Wallet extends React.Component {
     return (
       <>
         <header>
+          <h1>TrybeWallet</h1>
           <p data-testid="email-field">{`Email: ${email}`}</p>
           <p data-testid="total-field">{`Despesa total: R$${this.expensesCounter()}`}</p>
           <p data-testid="header-currency-field">BRL</p>
@@ -186,8 +187,7 @@ class Wallet extends React.Component {
           <button type="button" onClick={ this.handleSubmit }>Adicionar despesa</button>
         </form>
         { this.tableMaker() }
-      </>
-    );
+      </>);
   }
 }
 

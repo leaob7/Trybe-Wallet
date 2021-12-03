@@ -48,24 +48,25 @@ class Login extends React.Component {
     const { password, emailText } = this.state;
     const PASSWORD_LENTGH = 6;
     return (
-      <main>
+      <main id="login-main">
         <form className="form-style">
+          <h1>TrybeWallet</h1>
           <label htmlFor="email-input">
-            Email
             <input
               type="email"
               data-testid="email-input"
               onChange={ this.inputHandle }
+              placeholder="Email"
               required
             />
           </label>
 
           <label htmlFor="password-input">
-            Senha
             <input
               type="password"
               data-testid="password-input"
               minLength={ 6 }
+              placeholder="Password"
               onChange={ this.passwordHandle }
             />
           </label>
