@@ -78,7 +78,7 @@ class Wallet extends React.Component {
     if (expenses.length === 0) { return 0; }
     const sumExpenses = expenses.reduce((acc, { value, exchangeRates, currency }) => {
       if (currency === '') return 0;
-      return (acc + value * exchangeRates[currency].ask);
+      return (acc + Number(value) * exchangeRates[currency].ask);
     }, 0);
     return sumExpenses;
   }
@@ -104,15 +104,17 @@ class Wallet extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <td>{`${last.currency} ${last.value}`}</td>
-          <td>{last.description}</td>
-          <td>{ toBefSubstring(last.exchangeRates[last.currency].name) }</td>
-          <td>{last.method}</td>
-          <td>{last.tag}</td>
-          <td>{last.currency}</td>
-          <td>{ this.expensesCounter().toFixed(2) }</td>
-          <td>{ toAfterSubstring(last.exchangeRates[last.currency].name) }</td>
-          <button type="button" data-testid="delete-btn">Excluir/Editar</button>
+          <tr>
+            <td>{`${last.value}`}</td>
+            <td>{last.description}</td>
+            <td>{ toBefSubstring(last.exchangeRates[last.currency].name) }</td>
+            <td>{last.method}</td>
+            <td>{last.tag}</td>
+            <td>{Number(last.exchangeRates[last.currency].ask).toFixed(2)}</td>
+            <td>{ this.expensesCounter().toFixed(2) }</td>
+            <td>{ toAfterSubstring(last.exchangeRates[last.currency].name) }</td>
+            <button type="button" data-testid="delete-btn">Excluir</button>
+          </tr>
         </tbody>
       </table>
     );
