@@ -2,8 +2,6 @@
 header {
   color: black;
   background-color: rgb(90, 177, 97);
-  /* border: 1px solid black; */
-  /* border-radius: 5px; */
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -23,8 +21,6 @@ header h1 {
   flex-direction: row;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  /* border: 1px solid black; */
-  /* border-radius: 5px; */
   padding: 2px;
 }
  label, input, select , button{
