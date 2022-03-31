@@ -16,12 +16,6 @@ Neste projeto, é utilizado as seguintes linguagens :
 
   * CSS
 
-  * Criar dispatchers no Redux em aplicações React
-
-  * Conectar Redux aos componentes React
-
-  * Criar actions assíncronas na sua aplicação React que faz uso de Redux.
-
 ---
 
 ## Antes de começar a desenvolver
