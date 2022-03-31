@@ -6,8 +6,14 @@ Aplicação em React que usa Redux como ferramenta de manipulação de estado.
 Através dessa aplicação, será possível realizar as operações que simulam uma carteira digital.
 
 ---
+## Demonstração
 
-# Habilidades
+<img height="180px" src="/trybe-wallet-main.gif">
+<img height="180px" src="/trybe-wallet-main.gif">
+
+---
+
+## Habilidades
 Neste projeto, é utilizado as seguintes linguagens :
 
   * React
